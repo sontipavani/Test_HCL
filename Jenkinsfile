@@ -3,31 +3,21 @@ pipeline {
     
      
     stages {
-      stage('checkout') {
+      stage('Start') {
            steps {
              
-                git branch: 'master', url: 'https://github.com/devops4solutions/CI-example.git'
+                git branch: 'master', url: 'https://github.com/sontipavani/Test_HCL.git'
              
           }
         }
-         stage('Tools Init') {
-            steps {
-                script {
-                    echo "PATH = ${PATH}"
-                    echo "M2_HOME = ${M2_HOME}"
-               def tfHome = tool name: 'Ansible'
-                env.PATH = "${tfHome}:${env.PATH}"
-                 sh 'ansible --version'
-                    
-            }
-            }
-        }
+        
      
         
-         stage('Execute Maven') {
+         stage('Build') {
            steps {
              
-                sh 'mvn package'             
+                sh 'mvn -B -DskipTests clean package' 
+
           }
         }
         
